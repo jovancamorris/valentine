@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Valentine 💖</title>
+
+  <!-- GOOGLE FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="volume-note">🔊 volume up for best experience</div>
+
+<audio id="bgMusic" loop>
+  <source src="assets/music/love-song.mp3" type="audio/mp3">
+</audio>
+
+<section class="hero fade">
+  <h1>Happy Valentine<br>Veliana</h1>
+  <p>Every beat of my heart whispers your name 💕</p>
+</section>
+
+<section class="fade">
+  <div class="cards">
+    <div class="card"><img src="img/card1.jpg"></div>
+    <div class="card"><img src="img/card2.jpg"></div>
+    <div class="card"><img src="img/card3.jpg"></div>
+  </div>
+  <p style="margin-top:20px;">Where ever you are, u always in my heart 💖</p>
+</section>
+
+<section class="fade">
+  <h2>Our Little Story 📖</h2>
+  <div class="book-3d" id="book">
+    <div class="paper">
+      <div class="front"><img src="img/book1.jpg"><p>Lorem ipsum.</p></div>
+      <div class="back"><img src="img/book2.jpg"><p>Lorem ipsum.</p></div>
+    </div>
+    <div class="paper">
+      <div class="front"><img src="img/book3.jpg"><p>Lorem ipsum.</p></div>
+      <div class="back"><img src="img/book4.jpg"><p>Lorem ipsum.</p></div>
+    </div>
+    <div class="paper">
+      <div class="front"><img src="img/book5.jpg"><p>Lorem ipsum.</p></div>
+      <div class="back"><img src="img/book6.jpg"><p>Lorem ipsum.</p></div>
+    </div>
+  </div>
+  <p style="margin-top:15px;font-size:.85rem;opacity:.7;">swipe kiri / kanan</p>
+</section>
+
+<!-- ✉️ ENVELOPE -->
+<section class="fade">
+  <p class="env-hint" id="envHint">💌 open this letter <span>👇</span></p>
+  <div id="openEnv" class="env">💌</div>
+
+  <div class="letter">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      You are my favorite part of every day 💖
+    </p>
+  </div>
+</section>
+
+<section class="final fade">
+  <h2>Will u be my valentine?<br>for now and forever 💍</h2>
+  <div class="choice">
+    <button id="no">No</button>
+    <button id="yes">Yes 💖</button>
+  </div>
+</section>
+
+<div id="popup" class="popup">
+  <div class="popup-box">
+    <p>
+      Selamat! 💖<br><br>
+      Sekarang kita resmi pacaran 😆<br>
+      Screenshot & kirim ke pemilik webnya ya!
+    </p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

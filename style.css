@@ -1,0 +1,282 @@
+/* RESET */
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  font-family:'Playfair Display', serif;
+  background:
+    radial-gradient(circle at top, #ffd1dc, transparent 60%),
+    linear-gradient(180deg, #ffdde1, #ee9ca7);
+  color:#4a1c2d;
+  text-align:center;
+  overflow-x:hidden;
+}
+
+/* GLOBAL SECTION */
+section {
+  min-height:100vh;
+  padding:70px 20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+/* FADE ON SCROLL */
+.fade {
+  opacity:0;
+  transform:translateY(60px);
+  transition:1.2s cubic-bezier(.4,0,.2,1);
+}
+.fade.show {
+  opacity:1;
+  transform:none;
+}
+
+/* =========================
+   🌸 HERO (VALENTINE)
+========================= */
+.hero h1 {
+  font-family:'Great Vibes', cursive;
+  font-size:3.5rem;
+  color:#b30059;
+  line-height:1.2;
+  text-shadow:
+    0 0 12px rgba(255,182,193,.9),
+    0 0 35px rgba(255,105,180,.7),
+    0 0 70px rgba(255,105,180,.5);
+  animation:breath 4.5s ease-in-out infinite;
+}
+
+.hero p {
+  margin-top:14px;
+  font-size:1rem;
+  opacity:.85;
+}
+
+.volume-note {
+  position:fixed;
+  top:14px;
+  right:14px;
+  font-size:.7rem;
+  opacity:.65;
+  z-index:20;
+}
+
+@keyframes breath {
+  50% { transform:scale(1.07); }
+}
+
+/* =========================
+   💌 CARDS
+========================= */
+.cards {
+  display:flex;
+  gap:18px;
+}
+
+.card {
+  width:210px;
+  transition:.6s cubic-bezier(.4,0,.2,1);
+  filter:drop-shadow(0 18px 35px rgba(0,0,0,.25));
+  cursor:pointer;
+}
+
+.card img {
+  width:100%;
+  border-radius:20px;
+}
+
+.card:hover {
+  transform:scale(1.18) translateY(-10px);
+  z-index:5;
+}
+
+/* =========================
+   📖 3D BOOK
+========================= */
+.book-3d {
+  width:280px;
+  height:380px;
+  perspective:1800px;
+  position:relative;
+}
+
+.paper {
+  position:absolute;
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+  transition:1.2s cubic-bezier(.4,.2,.2,1);
+}
+
+.paper.flipped {
+  transform:rotateY(-180deg);
+}
+
+.front,
+.back {
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  border-radius:20px;
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(14px);
+  box-shadow:0 30px 55px rgba(0,0,0,.35);
+  padding:16px;
+}
+
+.front img,
+.back img {
+  width:100%;
+  border-radius:14px;
+}
+
+.back {
+  transform:rotateY(180deg);
+}
+
+/* =========================
+   ✉️ ENVELOPE
+========================= */
+.env {
+  font-size:4.8rem;
+  cursor:pointer;
+  animation:pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% { transform:scale(1.18); }
+}
+
+.letter {
+  display:none;
+  margin-top:22px;
+  max-width:340px;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(14px);
+  padding:26px;
+  border-radius:22px;
+  box-shadow:0 25px 50px rgba(0,0,0,.25);
+  animation:fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(40px); }
+  to { opacity:1; transform:none; }
+}
+
+/* ENVELOPE HINT */
+.env-hint {
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+  opacity: 0.75;
+  letter-spacing: 1px;
+  color: #7a1f3d;
+  animation: hintFloat 2.2s ease-in-out infinite;
+}
+
+/* subtle floating animation */
+@keyframes hintFloat {
+  50% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+
+/* =========================
+   💍 FINAL QUESTION
+========================= */
+.final h2 {
+  font-size:1.9rem;
+  margin-bottom:30px;
+}
+
+.choice {
+  display:flex;
+  gap:18px;
+}
+
+.choice button {
+  padding:15px 36px;
+  font-size:1.15rem;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+  transition:.3s ease;
+}
+
+#yes {
+  background:linear-gradient(45deg,#ff4d6d,#ff8fab);
+  color:white;
+  box-shadow:0 0 28px rgba(255,77,109,.9);
+  animation:yesGlow 2.2s infinite;
+}
+
+@keyframes yesGlow {
+  50% { box-shadow:0 0 55px rgba(255,143,171,1); }
+}
+
+#no {
+  background:#eee;
+}
+
+#no:active {
+  transform:scale(.9);
+}
+
+/* =========================
+   🎉 POPUP
+========================= */
+.popup {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  z-index:30;
+}
+
+.popup-box {
+  margin:35% auto;
+  width:85%;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(16px);
+  padding:26px;
+  border-radius:24px;
+  animation:pop 0.6s ease;
+}
+
+@keyframes pop {
+  from { transform:scale(.7); opacity:0; }
+  to { transform:scale(1); opacity:1; }
+}
+
+/* =========================
+   🌸 PARTICLES (FIXED TOP!)
+========================= */
+.particles {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+}
+
+.love,
+.sakura,
+.confetti {
+  position:absolute;
+  top:-40px;
+  animation:fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform:translateY(110vh) rotate(360deg);
+    opacity:0;
+  }
+}
