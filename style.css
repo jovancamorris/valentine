@@ -64,18 +64,31 @@ section {
 
 .cards-section {
   min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  overflow: hidden; /* penting */
 }
 
 /* HORIZONTAL SCROLL */
 .cards-scroll {
   display: flex;
   gap: 18px;
+
+  width: 100%;
+  max-width: 100vw;
+
   overflow-x: auto;
-  padding: 20px 10px;
+  overflow-y: hidden;
+
+  padding: 20px 16px;
+
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 }
+
 
 /* HIDE SCROLLBAR */
 .cards-scroll::-webkit-scrollbar {
@@ -143,15 +156,22 @@ section {
   cursor:pointer;
 }
 
+.card {
+  flex: 0 0 auto;        /* kunci horizontal scroll */
+  width: 220px;          /* ukuran stabil */
+  scroll-snap-align: center;
+  transition: transform .4s ease;
+}
+
 .card img {
-  width:100%;
-  border-radius:20px;
+  width: 100%;
+  border-radius: 20px;
 }
 
 .card:hover {
-  transform:scale(1.18) translateY(-10px);
-  z-index:5;
+  transform: scale(1.08);
 }
+
 
 /* =========================
    📖 3D BOOK
