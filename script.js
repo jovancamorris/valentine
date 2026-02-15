@@ -88,7 +88,22 @@ function launchConfetti(){
 }
 
 /* FINAL */
-let scale=1;
-no.onclick=()=>{yes.style.transform=`scale(${scale+=.12})`;}
-yes.onclick=()=>{launchConfetti();popup.style.display="block";}
-function closePopup(){popup.style.display="none";}
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const popup = document.getElementById("popup");
+let scale = 1;
+
+no.onclick = () => {
+  yes.style.transform = `scale(${scale += .14})`;
+};
+
+yes.onclick = () => {
+  launchConfetti();
+  popup.style.display = "flex";
+  no.disabled = true;
+};
+
+
+function closePopup() {
+  popup.style.display = "none";
+}
