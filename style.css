@@ -79,7 +79,7 @@ section {
 
   width: 100%;
   max-width: 100vw;
-
+  touch-action: pan-x;
   overflow-x: auto;
   overflow-y: hidden;
 
@@ -200,6 +200,7 @@ section {
   perspective: 1800px;
   position: relative;
   transition: transform 0.8s ease;
+  touch-action: pan-y;
 }
 
 
@@ -407,6 +408,58 @@ section {
 @keyframes pop {
   from { transform:scale(.7); opacity:0; }
   to { transform:scale(1); opacity:1; }
+}
+
+
+/* flipcard */
+
+/* =========================
+   💳 FLIP CARD
+========================= */
+.card-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.flip-card {
+  width: 280px;
+  height: 380px;
+  perspective: 1200px;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(.4,0,.2,1);
+}
+
+.flip-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 30px 55px rgba(0,0,0,.35);
+  padding: 16px;
+}
+
+.card-front img,
+.card-back img {
+  width: 100%;
+  border-radius: 14px;
+}
+
+.card-back {
+  transform: rotateY(180deg);
 }
 
 /* =========================
