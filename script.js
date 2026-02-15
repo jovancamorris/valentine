@@ -11,8 +11,37 @@ document.querySelectorAll(".fade").forEach(el=>observer.observe(el));
 /* BOOK SWIPE */
 const book = document.getElementById("book");
 const papers = document.querySelectorAll(".paper");
-let index = 0;
+
+let pageIndex = 0;
 let startX = 0;
+
+book.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+book.addEventListener("touchend", e => {
+  const endX = e.changedTouches[0].clientX;
+  const diff = startX - endX;
+
+  // OPEN
+  if (diff > 50 && pageIndex < papers.length) {
+    papers[pageIndex].classList.add("flipped");
+    pageIndex++;
+
+    // geser buku ke tengah pas kebuka
+    book.style.transform = "translateX(140px)";
+  }
+
+  // CLOSE
+  if (diff < -50 && pageIndex > 0) {
+    pageIndex--;
+    papers[pageIndex].classList.remove("flipped");
+
+    // balik ke tengah
+    book.style.transform = "translateX(0)";
+  }
+});
+
 
 // TOUCH (mobile)
 book.addEventListener("touchstart", e => {
