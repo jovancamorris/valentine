@@ -319,86 +319,32 @@ section {
 .final {
   background:
     radial-gradient(circle at center, rgba(255,182,193,.35), transparent 65%);
-    position: relative;
-    z-index: 10;
-}
-
-
-@keyframes finalFade {
-  from {
-    opacity:0;
-    transform:scale(.92) translateY(40px);
-  }
-  to {
-    opacity:1;
-    transform:none;
-  }
-}
-.final h2 {
-  font-size:2.1rem;
-  margin-bottom:36px;
-  line-height:1.35;
-  text-shadow:
-    0 0 18px rgba(255,105,180,.6),
-    0 0 40px rgba(255,105,180,.4);
-  animation: floatText 4s ease-in-out infinite;
-}
-
-@keyframes floatText {
-  50% { transform:translateY(-10px); }
-}
-
-.choice {
-  display:flex;
-  gap:18px;
+  position: relative;
 }
 
 .choice button {
-  padding:15px 36px;
-  font-size:1.15rem;
-  border-radius:999px;
-  border:none;
-  cursor:pointer;
-  position: relative;
-  z-index: 20;
-  transition:.3s ease;
+  transition: transform .3s ease;
 }
 
-
-
-/* YES sekarang soft */
-#yes {
-  background:#eee;
-  color:#4a1c2d;
-  box-shadow:none;
+@keyframes wiggle {
+  0%,100% { transform: rotate(0); }
+  25% { transform: rotate(6deg); }
+  75% { transform: rotate(-6deg); }
 }
 
-/* NO sekarang PINK + menggoda 😈 */
-#no {
-  background:linear-gradient(45deg,#ff4d6d,#ff8fab);
-  color:white;
-  box-shadow:0 0 28px rgba(255,77,109,.9);
-  animation:noGlow 2.2s infinite;
-}
-
-@keyframes noGlow {
-  50% { box-shadow:0 0 55px rgba(255,143,171,1); }
-}
-
-
+/* HAPUS z-index 1000 YANG LAMA */
 
 /* =========================
    🎉 POPUP
 ========================= */
 .popup {
   position: fixed;
-  display: none; /* WAJIB */
   inset: 0;
   background: rgba(0,0,0,.6);
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 2000; /* pastikan selalu di atas */
+  z-index: 2000; /* PALING ATAS */
 }
 
 .popup-box {
@@ -409,58 +355,120 @@ section {
   padding: 28px 22px;
   border-radius: 26px;
   text-align: center;
-  z-index: 2010;
   animation: pop .6s cubic-bezier(.4,0,.2,1);
 }
-
-
 
 @keyframes pop {
   from { transform:scale(.7); opacity:0; }
   to { transform:scale(1); opacity:1; }
 }
 
-.final,
-.choice,
-.choice button {
-  position: relative;
-  z-index: 1000;
-  pointer-events: auto;
-}
-
 /* =========================
-   🌸 PARTICLES (FIXED TOP!)
+   🌸 PARTICLES
 ========================= */
+
 .particles {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  pointer-events: none; /* ⭐ INI KUNCINYA */
-  z-index: 1;
+  pointer-events: none;
+  z-index: 100;
 }
 
-.particles,
 .love,
 .sakura,
 .confetti {
-  position:absolute;
-  top:-40px;
-  pointer-events: none !important;
-  animation:fall linear forwards;
+  position: absolute;
+  top: -40px;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
+
+.love {
+  color: #ff4d88;
+  opacity: .9;
+}
+
+.sakura {
+  color: #ff99cc;
+  opacity: .9;
+}
+
+.confetti {
+  opacity: 1;
 }
 
 @keyframes fall {
   to {
-    transform:translateY(110vh) rotate(360deg);
-    opacity:0;
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
   }
 }
 
-.final.show {
-  opacity: 1;
-  transform: none;
+
+
+/* Smooth scaling button */
+/* =========================
+   💍 BEAUTIFUL DECISION BUTTONS
+========================= */
+
+.choice {
+  display: flex;
+  gap: 22px;
+  margin-top: 10px;
 }
 
+.choice button {
+  padding: 16px 42px;
+  font-size: 1.1rem;
+  font-family: 'Playfair Display', serif;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: 
+    transform .3s ease,
+    box-shadow .3s ease,
+    background .3s ease;
+}
 
+/* 💖 YES BUTTON */
+#yes {
+  background: linear-gradient(135deg, #ffffff, #ffe6f0);
+  color: #b03060;
+  box-shadow:
+    0 8px 20px rgba(255,105,180,.25),
+    inset 0 0 10px rgba(255,255,255,.8);
+}
+
+/* glowing romantic hover */
+#yes:hover {
+  box-shadow:
+    0 0 25px rgba(255,105,180,.7),
+    0 0 60px rgba(255,182,193,.6);
+  transform: translateY(-3px);
+}
+
+/* 😈 NO BUTTON */
+#no {
+  background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+  color: white;
+  box-shadow:
+    0 8px 25px rgba(255,77,109,.6);
+}
+
+/* playful glow */
+#no:hover {
+  box-shadow:
+    0 0 35px rgba(255,77,109,.9),
+    0 0 70px rgba(255,143,171,.7);
+  transform: translateY(-3px);
+}
+
+/* click press effect */
+.choice button:active {
+  transform: scale(.95);
+}

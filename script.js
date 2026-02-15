@@ -67,13 +67,6 @@ env.addEventListener("click", () => {
   letter.style.display = "block";
 });
 
-document.styleSheets[0].insertRule(`
-@keyframes wiggle {
-  0%,100%{transform:rotate(0)}
-  25%{transform:rotate(6deg)}
-  75%{transform:rotate(-6deg)}
-}
-`, 0);
 
 /* ======================
    🌸 PARTICLES
@@ -102,70 +95,40 @@ function launchConfetti() {
   }
 }
 
+// final
 /* ======================
-
    💍 FINAL QUESTION
+====================== */
 
-   ====================== */
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const popup = document.getElementById("popup");
 
-   const yes = document.getElementById("yes");
+let yesScale = 1;
+let noScale = 1;
 
-   const no = document.getElementById("no");
+yes.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
 
-   const popup = document.getElementById("popup");
+  launchConfetti();
+  popup.style.display = "flex";
+});
 
+no.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
 
+  // YES membesar
+  yesScale += 0.15;
+  yes.style.transform = `scale(${yesScale})`;
 
-   let scale = 1;
+  // NO mengecil
+  noScale -= 0.08;
+  if (noScale < 0.5) noScale = 0.5;
+  no.style.transform = `scale(${noScale})`;
+});
 
-
-
-   function yesAction(e) {
-
-     e.preventDefault();
-
-       e.stopPropagation();
-
-
-
-         launchConfetti();
-
-           popup.style.display = "flex";
-
-             no.disabled = true;
-
-               yes.disabled = true;
-
-               }
-
-
-
-               function noAction(e) {
-
-                 e.preventDefault();
-
-                   e.stopPropagation();
-
-
-
-                     scale += 0.14;
-
-                       yes.style.transform = `scale(${scale})`;
-
-                       }
-
-
-
-                       yes.addEventListener("click", yesAction);
-
-                       no.addEventListener("click", noAction);
-
-
-
-                       function closePopup() {
-
-                         popup.style.display = "none";
-
-                         }
-
-                         
+function closePopup() {
+  popup.style.display = "none";
+}
