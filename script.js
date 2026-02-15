@@ -13,33 +13,36 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll(".fade").forEach(el => observer.observe(el));
 
-//* ======================
-// 💳 CARD FLIP (TAP + SWIPE)
-// ====================== */
-const flipCard = document.getElementById("flipCard");
+/* ======================
+   📖 BOOK SWIPE / TAP
+====================== */
+const book = document.getElementById("book");
+const pages = document.querySelectorAll(".paper");
 
+let page = 0;
 let startX = 0;
 
-// TAP / CLICK
-flipCard.addEventListener("click", () => {
-  flipCard.classList.toggle("flipped");
-});
-
 // TOUCH START
-flipCard.addEventListener("touchstart", e => {
+book.addEventListener("touchstart", e => {
   startX = e.touches[0].clientX;
 }, { passive: true });
 
 // TOUCH END
-flipCard.addEventListener("touchend", e => {
-  const endX = e.changedTouches[0].clientX;
-  const diff = startX - endX;
+book.addEventListener("touchend", e => {
+  const diff = startX - e.changedTouches[0].clientX;
 
-  if (Math.abs(diff) > 40) {
-    flipCard.classList.toggle("flipped");
+  // SWIPE LEFT → OPEN
+  if (diff > 50 && page < pages.length) {
+    pages[page].classList.add("flipped");
+    page++;
+  }
+
+  // SWIPE RIGHT → CLOSE
+  if (diff < -50 && page > 0) {
+    page--;
+    pages[page].classList.remove("flipped");
   }
 });
-
 
 // DESKTOP CLICK
 book.addEventListener("click", () => {
