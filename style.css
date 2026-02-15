@@ -15,6 +15,18 @@ body {
   overflow-x:hidden;
 }
 
+/* volume */
+.volume-note {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .7rem;
+  opacity: .65;
+  z-index: 20;
+}
+
+
 /* GLOBAL SECTION */
 section {
   min-height:100vh;
@@ -212,9 +224,35 @@ section {
 /* =========================
    💍 FINAL QUESTION
 ========================= */
+
+.final {
+  background:
+    radial-gradient(circle at center, rgba(255,182,193,.35), transparent 65%);
+  animation: finalFade 1.6s ease forwards;
+}
+
+@keyframes finalFade {
+  from {
+    opacity:0;
+    transform:scale(.92) translateY(40px);
+  }
+  to {
+    opacity:1;
+    transform:none;
+  }
+}
 .final h2 {
-  font-size:1.9rem;
-  margin-bottom:30px;
+  font-size:2.1rem;
+  margin-bottom:36px;
+  line-height:1.35;
+  text-shadow:
+    0 0 18px rgba(255,105,180,.6),
+    0 0 40px rgba(255,105,180,.4);
+  animation: floatText 4s ease-in-out infinite;
+}
+
+@keyframes floatText {
+  50% { transform:translateY(-10px); }
 }
 
 .choice {
@@ -231,45 +269,50 @@ section {
   transition:.3s ease;
 }
 
+/* YES sekarang soft */
 #yes {
+  background:#eee;
+  color:#4a1c2d;
+  box-shadow:none;
+}
+
+/* NO sekarang PINK + menggoda 😈 */
+#no {
   background:linear-gradient(45deg,#ff4d6d,#ff8fab);
   color:white;
   box-shadow:0 0 28px rgba(255,77,109,.9);
-  animation:yesGlow 2.2s infinite;
+  animation:noGlow 2.2s infinite;
 }
 
-@keyframes yesGlow {
+@keyframes noGlow {
   50% { box-shadow:0 0 55px rgba(255,143,171,1); }
 }
 
-#no {
-  background:#eee;
-}
-
-#no:active {
-  transform:scale(.9);
-}
 
 /* =========================
    🎉 POPUP
 ========================= */
 .popup {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  display:none;
-  z-index:30;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }
 
 .popup-box {
-  margin:35% auto;
-  width:85%;
-  background:rgba(255,255,255,.88);
-  backdrop-filter:blur(16px);
-  padding:26px;
-  border-radius:24px;
-  animation:pop 0.6s ease;
+  width: 90%;
+  max-width: 360px;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(16px);
+  padding: 28px 22px;
+  border-radius: 26px;
+  text-align: center;
+  animation: pop .6s cubic-bezier(.4,0,.2,1);
 }
+
 
 @keyframes pop {
   from { transform:scale(.7); opacity:0; }
