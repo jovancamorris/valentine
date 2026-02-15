@@ -44,14 +44,15 @@ book.addEventListener("touchend", e => {
   }
 });
 
-// DESKTOP CLICK
-book.addEventListener("click", () => {
-  if (page < pages.length) {
-    pages[page].classList.add("flipped");
-    page++;
-    book.style.transform = "translateX(140px)";
-  }
-});
+// // DESKTOP CLICK
+// book.addEventListener("click", () => {
+//   if (page < pages.length) {
+//     pages[page].classList.add("flipped");
+//     page++;
+//     book.style.transform = "translateX(140px)";
+//   }
+// }
+// );
 
 /* ======================
    💌 ENVELOPE
