@@ -106,17 +106,26 @@ section {
   position:relative;
 }
 
+
 .paper {
   position:absolute;
   width:100%;
   height:100%;
   transform-style:preserve-3d;
+  transform-origin:left;
   transition:1.2s cubic-bezier(.4,.2,.2,1);
 }
 
+/* Biar urutannya benar */
+.paper:nth-child(1){ z-index:3; }
+.paper:nth-child(2){ z-index:2; }
+.paper:nth-child(3){ z-index:1; }
+
 .paper.flipped {
   transform:rotateY(-180deg);
+  z-index:0;
 }
+
 
 .front,
 .back {
@@ -140,9 +149,7 @@ section {
   transform:rotateY(180deg);
 }
 
-/* =========================
-   ✉️ ENVELOPE
-========================= */
+/* ENVELOPE */
 .env {
   font-size:4.8rem;
   cursor:pointer;
@@ -153,6 +160,35 @@ section {
   50% { transform:scale(1.18); }
 }
 
+/* PLAYFUL HINT */
+.env-hint {
+  font-size:0.95rem;
+  margin-bottom:8px;
+  color:#7a1f3d;
+  letter-spacing:1px;
+  animation:hintBounce 1.8s infinite;
+}
+
+.env-hint span {
+  display:inline-block;
+  animation:arrow 1.2s infinite;
+}
+
+@keyframes hintBounce {
+  50% { transform:translateY(-6px); }
+}
+
+@keyframes arrow {
+  50% { transform:translateY(6px); }
+}
+
+.env-hint.hide {
+  opacity:0;
+  transform:scale(.7);
+  transition:.5s;
+}
+
+/* LETTER */
 .letter {
   display:none;
   margin-top:22px;
@@ -169,25 +205,6 @@ section {
   from { opacity:0; transform:translateY(40px); }
   to { opacity:1; transform:none; }
 }
-
-/* ENVELOPE HINT */
-.env-hint {
-  font-size: 0.85rem;
-  margin-bottom: 10px;
-  opacity: 0.75;
-  letter-spacing: 1px;
-  color: #7a1f3d;
-  animation: hintFloat 2.2s ease-in-out infinite;
-}
-
-/* subtle floating animation */
-@keyframes hintFloat {
-  50% {
-    transform: translateY(-6px);
-    opacity: 1;
-  }
-}
-
 
 /* =========================
    💍 FINAL QUESTION

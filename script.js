@@ -11,14 +11,38 @@ document.querySelectorAll(".fade").forEach(el=>observer.observe(el));
 /* BOOK SWIPE */
 const book = document.getElementById("book");
 const papers = document.querySelectorAll(".paper");
-let index=0,startX=0;
+let index = 0;
+let startX = 0;
 
-book?.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
-book?.addEventListener("touchend",e=>{
-  let diff=startX-e.changedTouches[0].clientX;
-  if(diff>50 && index<papers.length){papers[index++].classList.add("flipped");}
-  if(diff<-50 && index>0){papers[--index].classList.remove("flipped");}
+// TOUCH (mobile)
+book.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
 });
+
+book.addEventListener("touchend", e => {
+  const diff = startX - e.changedTouches[0].clientX;
+
+  if (diff > 50 && index < papers.length) {
+    papers[index].classList.add("flipped");
+    index++;
+  }
+
+  if (diff < -50 && index > 0) {
+    index--;
+    papers[index].classList.remove("flipped");
+  }
+});
+
+// CLICK (desktop)
+book.addEventListener("click", () => {
+  if (index < papers.length) {
+    papers[index].classList.add("flipped");
+    index++;
+  } else {
+    index = papers.length;
+  }
+});
+
 
 /* ENVELOPE PLAYFUL */
 const env=document.getElementById("openEnv");
