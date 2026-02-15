@@ -53,23 +53,65 @@ section {
    🌸 HERO (VALENTINE)
 ========================= */
 .hero h1 {
-  font-family:'Great Vibes', cursive;
-  font-size:3.5rem;
-  color:#b30059;
-  line-height:1.2;
-  text-shadow:
-    0 0 12px rgba(255,182,193,.9),
-    0 0 35px rgba(255,105,180,.7),
-    0 0 70px rgba(255,105,180,.5);
-  animation:breath 4.5s ease-in-out infinite;
+  font-size: clamp(2.8rem, 6vw, 3.6rem);
+  margin-bottom: 14px;
 }
-
 
 .hero p {
-  margin-top:14px;
-  font-size:1rem;
-  opacity:.85;
+  max-width: 280px;
+  line-height: 1.5;
 }
+
+.cards-section {
+  min-height: 100vh;
+  justify-content: center;
+}
+
+/* HORIZONTAL SCROLL */
+.cards-scroll {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 20px 10px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* HIDE SCROLLBAR */
+.cards-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  min-width: 220px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  transition: 0.4s ease;
+}
+
+.card:hover {
+  transform: scale(1.08);
+}
+
+.cards-text {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  max-width: 300px;
+}
+
+
+
+.hero {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 
 .volume-note {
   position:fixed;
@@ -114,31 +156,59 @@ section {
 /* =========================
    📖 3D BOOK
 ========================= */
-.book-3d {
-  width:280px;
-  height:380px;
-  perspective:1800px;
-  position:relative;
+.book-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+/* wrapper yg nge-lock posisi */
+.book-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* BOOK */
+.book-3d {
+  width: 280px;
+  height: 380px;
+  perspective: 1800px;
+  position: relative;
+  transition: transform 0.8s ease;
+}
+
 
 
 .paper {
-  position:absolute;
-  width:100%;
-  height:100%;
-  transform-style:preserve-3d;
-  transform-origin:left;
-  transition:1.2s cubic-bezier(.4,.2,.2,1);
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+
+  /* KUNCI: flip dari tengah kiri (buku asli) */
+  transform-origin: left center;
+
+  transition: transform 1.2s cubic-bezier(.4,.2,.2,1),
+              z-index 0.6s ease;
 }
 
-/* Biar urutannya benar */
-.paper:nth-child(1){ z-index:3; }
-.paper:nth-child(2){ z-index:2; }
-.paper:nth-child(3){ z-index:1; }
+/* URUTAN HALAMAN (DEPAN PALING ATAS) */
+.paper:nth-child(1) { z-index: 5; }
+.paper:nth-child(2) { z-index: 4; }
+.paper:nth-child(3) { z-index: 3; }
 
+/* SAAT DIBUKA */
 .paper.flipped {
-  transform:rotateY(-180deg);
-  z-index:0;
+  transform: rotateY(-180deg);
+
+  /* biar halaman yg sudah dibuka tidak nutup yg lain */
+  z-index: 1;
 }
 
 
