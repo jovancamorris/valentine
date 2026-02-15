@@ -365,6 +365,7 @@ section {
 }
 
 
+
 /* YES sekarang soft */
 #yes {
   background:#eee;
@@ -385,6 +386,7 @@ section {
 }
 
 
+
 /* =========================
    🎉 POPUP
 ========================= */
@@ -396,7 +398,7 @@ section {
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 999;
+  z-index: 2000; /* pastikan selalu di atas */
 }
 
 .popup-box {
@@ -407,13 +409,23 @@ section {
   padding: 28px 22px;
   border-radius: 26px;
   text-align: center;
+  z-index: 2010;
   animation: pop .6s cubic-bezier(.4,0,.2,1);
 }
+
 
 
 @keyframes pop {
   from { transform:scale(.7); opacity:0; }
   to { transform:scale(1); opacity:1; }
+}
+
+.final,
+.choice,
+.choice button {
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
 }
 
 /* =========================
@@ -429,11 +441,13 @@ section {
   z-index: 1;
 }
 
+.particles,
 .love,
 .sakura,
 .confetti {
   position:absolute;
   top:-40px;
+  pointer-events: none !important;
   animation:fall linear forwards;
 }
 
@@ -448,3 +462,5 @@ section {
   opacity: 1;
   transform: none;
 }
+
+

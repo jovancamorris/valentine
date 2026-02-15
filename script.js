@@ -107,21 +107,39 @@ function launchConfetti() {
 ====================== */
 const yes = document.getElementById("yes");
 const no = document.getElementById("no");
-const popup = document.getElementById("popup");
+const popup = document.getElementById("popup");''
+yes.addEventListener("click", yesAction);
+yes.addEventListener("touchstart", yesAction);
+
 
 let scale = 1;
 
-no.onclick = () => {
+function yesAction(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  launchConfetti();          // jalankan confetti
+  popup.style.display = "flex"; // tampilkan popup
+  no.disabled = true;           // disable tombol No
+  yes.disabled = true;          // disable tombol Yes
+}
+
+function noAction(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
   scale += 0.14;
   yes.style.transform = `scale(${scale})`;
-};
+}
 
-yes.onclick = () => {
-  launchConfetti();
-  popup.style.display = "flex";
-  no.disabled = true;
-};
+["click", "touchstart"].forEach(evt => {
+  yes.addEventListener(evt, yesAction, { passive: false });
+  no.addEventListener(evt, noAction, { passive: false });
+});
+
+yes.addEventListener("touchstart", () => alert("YES TOUCHED"));
 
 function closePopup() {
   popup.style.display = "none";
 }
+
