@@ -103,43 +103,69 @@ function launchConfetti() {
 }
 
 /* ======================
+
    💍 FINAL QUESTION
-====================== */
-const yes = document.getElementById("yes");
-const no = document.getElementById("no");
-const popup = document.getElementById("popup");''
-yes.addEventListener("click", yesAction);
-yes.addEventListener("touchstart", yesAction);
+
+   ====================== */
+
+   const yes = document.getElementById("yes");
+
+   const no = document.getElementById("no");
+
+   const popup = document.getElementById("popup");
 
 
-let scale = 1;
 
-function yesAction(e) {
-  e.preventDefault();
-  e.stopPropagation();
+   let scale = 1;
 
-  launchConfetti();          // jalankan confetti
-  popup.style.display = "flex"; // tampilkan popup
-  no.disabled = true;           // disable tombol No
-  yes.disabled = true;          // disable tombol Yes
-}
 
-function noAction(e) {
-  e.preventDefault();
-  e.stopPropagation();
 
-  scale += 0.14;
-  yes.style.transform = `scale(${scale})`;
-}
+   function yesAction(e) {
 
-["click", "touchstart"].forEach(evt => {
-  yes.addEventListener(evt, yesAction, { passive: false });
-  no.addEventListener(evt, noAction, { passive: false });
-});
+     e.preventDefault();
 
-yes.addEventListener("touchstart", () => alert("YES TOUCHED"));
+       e.stopPropagation();
 
-function closePopup() {
-  popup.style.display = "none";
-}
 
+
+         launchConfetti();
+
+           popup.style.display = "flex";
+
+             no.disabled = true;
+
+               yes.disabled = true;
+
+               }
+
+
+
+               function noAction(e) {
+
+                 e.preventDefault();
+
+                   e.stopPropagation();
+
+
+
+                     scale += 0.14;
+
+                       yes.style.transform = `scale(${scale})`;
+
+                       }
+
+
+
+                       yes.addEventListener("click", yesAction);
+
+                       no.addEventListener("click", noAction);
+
+
+
+                       function closePopup() {
+
+                         popup.style.display = "none";
+
+                         }
+
+                         
