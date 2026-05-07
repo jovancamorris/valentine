@@ -2,151 +2,281 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Valentine 💖</title>
-
-  <!-- GOOGLE FONTS -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>For Veliana 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Lato:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="volume-note">🔊 tap screen for music!</div>
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-heart">💖</div>
+    <p class="loader-text">Loading love...</p>
+  </div>
+</div>
 
+<!-- AUDIO -->
 <audio id="bgMusic" loop>
   <source src="music.mp3" type="audio/mp3">
 </audio>
 
-<section class="hero fade">
-  <h1>Happy Valentine<br>Veliana</h1>
-  <p>Every beat of my heart whispers your name 💕</p>
-</section>
+<!-- MUSIC TOGGLE -->
+<button id="musicBtn" class="music-btn" title="Toggle Music">
+  <span id="musicIcon">🎵</span>
+</button>
 
-<!-- <section class="fade">
-  <div class="cards">
-    
-    <div class="card"><img src="img/card2.jpg"></div>
-    <div class="card"><img src="img/book8.jpg"></div>
-    <div class="card"><img src="img/card3.jpg"></div>
-  </div>
-  <p style="margin-top:20px;">Where ever you are, u always in my heart 💖</p>
-</section> -->
+<!-- PARTICLES -->
+<div class="particles" id="particles"></div>
 
-<section class="fade cards-section">
-  <div class="cards-scroll">
-    <div class="card"><img src="img/card2.jpg"></div>
-    <div class="card"><img src="img/book8.jpg"></div>
-    <div class="card"><img src="img/card3.jpg"></div>
-    <div class="card"><img src="img/card1.jpg"></div>
-    <div class="card"><img src="img/book2.jpg"></div>
+<!-- =================== HERO =================== -->
+<section id="hero" class="section hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-content fade">
+    <p class="hero-tagline">A love letter, just for you</p>
+    <h1 class="hero-title">Happy Valentine</h1>
+    <h1 class="hero-name">Veliana</h1>
+    <p class="hero-sub">Every beat of my heart whispers your name 💕</p>
   </div>
 
-  <p class="cards-text">
-    Wherever you are, you are always in my heart 💖
-  </p>
+  <div class="scroll-hint fade">
+    <span class="scroll-label">scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+
+  <div class="float-deco f1">💖</div>
+  <div class="float-deco f2">✨</div>
+  <div class="float-deco f3">🌸</div>
+  <div class="float-deco f4">💕</div>
+  <div class="float-deco f5">⭐</div>
+  <div class="float-deco f6">🌹</div>
 </section>
 
+<!-- =================== GALLERY =================== -->
+<section id="gallery" class="section gallery-section">
+  <div class="section-header fade">
+    <p class="section-label">Captured Moments</p>
+    <h2 class="section-title">You, in every frame 📸</h2>
+  </div>
 
-<section class="fade book-section">
-  <h2>This is Veliana Valeri May 👸</h2>
-  <br>
-  <br>
-  <div class="book-wrapper">
+  <div class="gallery-track fade">
+    <div class="gallery-card">
+      <div class="gallery-img-wrap"><img src="img/card2.jpg" alt="moment" class="gallery-img"></div>
+      <div class="gallery-caption"><p>The smile that started everything</p></div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-img-wrap"><img src="img/book8.jpg" alt="moment" class="gallery-img"></div>
+      <div class="gallery-caption"><p>Where time stands still</p></div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-img-wrap"><img src="img/card3.jpg" alt="moment" class="gallery-img"></div>
+      <div class="gallery-caption"><p>My favorite kind of day</p></div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-img-wrap"><img src="img/card1.jpg" alt="moment" class="gallery-img"></div>
+      <div class="gallery-caption"><p>Every moment with you counts</p></div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-img-wrap"><img src="img/book2.jpg" alt="moment" class="gallery-img"></div>
+      <div class="gallery-caption"><p>Always you, always us</p></div>
+    </div>
+    <!-- dummy placeholders -->
+    <div class="gallery-card">
+      <div class="gallery-img-wrap"><div class="dummy-g dummy-g1"></div></div>
+      <div class="gallery-caption"><p>A memory yet to be made 🌸</p></div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-img-wrap"><div class="dummy-g dummy-g2"></div></div>
+      <div class="gallery-caption"><p>More chapters await us ✨</p></div>
+    </div>
+  </div>
+
+  <p class="gallery-swipe-hint fade">← swipe to explore →</p>
+</section>
+
+<!-- =================== BOOK =================== -->
+<section id="book-section" class="section book-section">
+  <div class="section-header fade">
+    <p class="section-label">A Story About Her</p>
+    <h2 class="section-title">This is Veliana Valeri May 👸</h2>
+  </div>
+
+  <div class="book-wrapper fade">
     <div class="book-3d" id="book">
-
       <div class="paper">
         <div class="front">
-          <img src="img/book1.jpg">
+          <img src="img/book1.jpg" alt="">
           <p>I loved you in ways I never knew how to explain.</p>
         </div>
         <div class="back">
-          <img src="img/book2.jpg">
+          <img src="img/book2.jpg" alt="">
           <p>In your presence, my chaos learned peace.</p>
         </div>
       </div>
-    
       <div class="paper">
         <div class="front">
-          <img src="img/book3.jpg">
+          <img src="img/book3.jpg" alt="">
           <p>You are my favorite reason to smile every single day.</p>
         </div>
         <div class="back">
-          <!-- <img src="img/book4.jpg">
-          <p>Loving you is the best decision my heart ever made.</p> -->
+          <div class="dummy-book db1"></div>
+          <p>Loving you is the best decision my heart ever made.</p>
         </div>
       </div>
-    
       <div class="paper">
         <div class="front">
-          <img src="img/book5.jpg">
+          <img src="img/book5.jpg" alt="">
           <p>I choose you, in this life and in every version of me.</p>
         </div>
         <div class="back">
-          <img src="img/book6.jpg">
+          <img src="img/book6.jpg" alt="">
           <p>Always you, always us.</p>
         </div>
       </div>
-    
     </div>
-    
   </div>
 
-  <p class="book-hint">swipe for next and back </p>
+  <div class="book-controls fade">
+    <button class="book-btn" id="bookPrev">← Prev</button>
+    <span class="book-indicator">
+      <span id="bookCurrent">1</span> / <span id="bookTotal">3</span>
+    </span>
+    <button class="book-btn" id="bookNext">Next →</button>
+  </div>
+
+  <p class="book-hint fade">swipe or tap buttons to flip pages</p>
 </section>
 
+<!-- =================== TIMELINE =================== -->
+<section id="memories" class="section memories-section">
+  <div class="section-header fade">
+    <p class="section-label">Our Journey</p>
+    <h2 class="section-title">Moments I'll Never Forget 💫</h2>
+  </div>
 
-<!-- ✉️ ENVELOPE -->
-<section class="fade">
-  <p class="env-hint" id="envHint">💌 open this letter <span>👇</span></p>
-  <div id="openEnv" class="env">💌</div>
-
-  <div class="letter">
-    <p>
-      Hai veliana, This Valentine’s Day,
-      <br>
-      <br>
-            I just want you to know how deeply I love you—quietly, 
-      sincerely, and without ever fading. 
-      When I heard the rumors that you might be getting close to someone, 
-      I chose to take a step back, not because my feelings changed,
-       but because I want to respect you and whatever you may be feeling. 
-       Even so, my heart remains the same; I’m still here, 
-       silently guarding this love that has always belonged to you, 
-       holding on with patience and sincerity, loving you in a way that may not always be seen, 
-       but has never once disappeared.
-      <br>
-      <br>
-      ini projek roro jonggrang jadi semalem suntuk, nnti di update pas 22 mei ya!, saya jamin 100% more more more good
-      <br>
-      <br>
-      You are my favorite part of every day 💖
-    </p>
+  <div class="timeline">
+    <div class="timeline-item fade">
+      <div class="tl-dot">💖</div>
+      <div class="tl-card">
+        <div class="tl-img dummy-t dt1"></div>
+        <div class="tl-content">
+          <h3>The Beginning</h3>
+          <p>The first time I saw you, something in me just knew.</p>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item fade">
+      <div class="tl-dot">🌸</div>
+      <div class="tl-card">
+        <div class="tl-img dummy-t dt2"></div>
+        <div class="tl-content">
+          <h3>Getting Closer</h3>
+          <p>Every conversation, every laugh — I fell a little more.</p>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item fade">
+      <div class="tl-dot">✨</div>
+      <div class="tl-card">
+        <div class="tl-img dummy-t dt3"></div>
+        <div class="tl-content">
+          <h3>The Quiet Moments</h3>
+          <p>Not all love is loud. Sometimes it's just being there.</p>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item fade">
+      <div class="tl-dot">💍</div>
+      <div class="tl-card">
+        <div class="tl-img dummy-t dt4"></div>
+        <div class="tl-content">
+          <h3>Today & Always</h3>
+          <p>This Valentine's Day, I choose you again.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="final fade">
-  <h2>Will u be my valentine? 😊 <br>for now and forever 💍</h2>
-  <div class="choice">
-    <button id="no">No</button>
-    <button id="yes">Yes 💖</button>
+<!-- =================== ENVELOPE =================== -->
+<section id="envelope-section" class="section envelope-section">
+  <div class="section-header fade">
+    <p class="section-label">A Letter From The Heart</p>
+    <h2 class="section-title">I wrote this for you 💌</h2>
+  </div>
+
+  <div class="envelope-wrap fade" id="envelopeWrap">
+    <div class="envelope" id="envelope">
+      <div class="env-flap"></div>
+      <div class="env-body">
+        <div class="env-wings"></div>
+        <span class="env-seal" id="envSeal">💌</span>
+      </div>
+    </div>
+    <p class="env-hint" id="envHint">tap the envelope to open 💕</p>
+  </div>
+
+  <div class="letter-container" id="letterContainer">
+    <div class="letter-paper">
+      <div class="letter-ornament top">✦ &nbsp; ✦ &nbsp; ✦</div>
+      <p class="letter-greeting">Dear Veliana,</p>
+      <p class="letter-body">
+        This Valentine's Day, I just want you to know how deeply I love you —
+        quietly, sincerely, and without ever fading.
+        <br><br>
+        When I heard the rumors that you might be getting close to someone,
+        I chose to take a step back — not because my feelings changed,
+        but because I want to respect you and whatever you may be feeling.
+        <br><br>
+        Even so, my heart remains the same. I'm still here,
+        silently guarding this love that has always belonged to you,
+        holding on with patience and sincerity, loving you in a way
+        that may not always be seen, but has never once disappeared.
+        <br><br>
+        <em>ini projek roro jonggrang — semalem suntuk,</em><br>
+        <em>nanti di-update pas 22 mei ya! 100% more more more good 🌸</em>
+      </p>
+      <p class="letter-sign">
+        You are my favorite part of every day 💖
+        <span class="letter-from">— always yours</span>
+      </p>
+      <div class="letter-ornament bottom">✦ &nbsp; ✦ &nbsp; ✦</div>
+    </div>
   </div>
 </section>
 
+<!-- =================== FINAL QUESTION =================== -->
+<section id="question" class="section question-section">
+  <div class="ring r1"></div>
+  <div class="ring r2"></div>
+  <div class="ring r3"></div>
+
+  <div class="question-content fade">
+    <p class="section-label">One Last Thing...</p>
+    <h2 class="question-title">Will you be my Valentine? 💍</h2>
+    <p class="question-sub">for now and forever 🌹</p>
+
+    <div class="choice">
+      <button id="no" class="choice-btn btn-no">No 🙈</button>
+      <button id="yes" class="choice-btn btn-yes">Yes, always! 💖</button>
+    </div>
+  </div>
+</section>
+
+<!-- =================== POPUP =================== -->
 <div id="popup" class="popup">
+  <div class="popup-overlay" onclick="closePopup()"></div>
   <div class="popup-box">
-    <p>
-      Selamat! 💖<br><br>
-      Sekarang kita resmi pacaran 😆<br>
-      Screenshot & kirim ke pemilik webnya ya!
-    </p>
-    <button onclick="closePopup()">OK</button>
+    <div class="popup-emoji">🎊</div>
+    <h3>Selamat! 💖</h3>
+    <p>Sekarang kita resmi pacaran 😆<br>Screenshot &amp; kirim ke pemilik webnya ya!</p>
+    <div class="popup-hearts">💖 💕 💗 💓 💝</div>
+    <button class="popup-close" onclick="closePopup()">Iya, Siap! 💌</button>
   </div>
 </div>
-
 
 <script src="script.js"></script>
 </body>
 </html>
- 
