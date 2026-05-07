@@ -83,61 +83,115 @@ const fadeObserver = new IntersectionObserver(entries => {
 document.querySelectorAll('.fade').forEach(el => fadeObserver.observe(el));
 
 /* ============================
-   BOOK — SWIPE + BUTTONS
+   BOOK
+   Two-phase flip on a single card element.
+   Phase 1: card rotates to 90° (edge-on, invisible). ~260ms
+   Phase 2: content swaps, card rotates in from -90°.  ~300ms
+   No stacked elements. No z-index. No backface tricks.
 ============================ */
-const book      = document.getElementById('book');
-const pages     = document.querySelectorAll('.paper');
-const bookPrev  = document.getElementById('bookPrev');
-const bookNext  = document.getElementById('bookNext');
-const bookCurEl = document.getElementById('bookCurrent');
-const bookTotEl = document.getElementById('bookTotal');
-let pageIdx  = 0;
-let flipping = false;
-const FLIP_DUR = 1250;
+const BOOK_PAGES = [
+  { img: 'img/book1.jpg', text: 'I loved you in ways I never knew how to explain.' },
+  { img: 'img/book2.jpg', text: 'In your presence, my chaos learned peace.' },
+  { img: 'img/book3.jpg', text: 'You are my favorite reason to smile every single day.' },
+  { img: null,            text: 'Loving you is the best decision my heart ever made.', dummy: 'db1' },
+  { img: 'img/book5.jpg', text: 'I choose you, in this life and in every version of me.' },
+  { img: 'img/book6.jpg', text: 'Always you, always us.' },
+];
 
-bookTotEl.textContent = pages.length;
+const OUT_MS    = 260;
+const IN_MS     = 300;
+const MID_SCALE = 0.88;
 
-function updateBook() {
-  bookCurEl.textContent = pageIdx < pages.length ? pageIdx + 1 : pages.length;
-  bookPrev.disabled = pageIdx === 0;
-  bookNext.disabled = pageIdx >= pages.length;
-}
+let bookIdx  = 0;
+let bookBusy = false;
 
-function flipNext() {
-  if (flipping || pageIdx >= pages.length) return;
-  flipping = true;
-  const p = pages[pageIdx];
-  p.classList.add('flipping');  // z-index:10 — animation stays visible on top
-  p.classList.add('flipped');   // starts the rotateY transition
-  pageIdx++;
-  updateBook();
-  setTimeout(() => { p.classList.remove('flipping'); flipping = false; }, FLIP_DUR);
-}
+const bookCard  = document.getElementById('bookCard');
+const bookMedia = document.getElementById('bookMedia');
+const bookTxt   = document.getElementById('bookText');
+const dotsWrap  = document.getElementById('bookDots');
+const btnPrev   = document.getElementById('bookPrev');
+const btnNext   = document.getElementById('bookNext');
+const bookStage = document.querySelector('.book-stage');
 
-function flipPrev() {
-  if (flipping || pageIdx <= 0) return;
-  flipping = true;
-  pageIdx--;
-  const p = pages[pageIdx];
-  p.classList.add('flipping');   // z-index:10 — reverse animation also stays on top
-  p.classList.remove('flipped'); // starts the reverse rotateY transition
-  updateBook();
-  setTimeout(() => { p.classList.remove('flipping'); flipping = false; }, FLIP_DUR);
-}
-
-bookNext.addEventListener('click', flipNext);
-bookPrev.addEventListener('click', flipPrev);
-
-// Touch swipe (mobile)
-let swipeStartX = 0;
-book.addEventListener('touchstart', e => { swipeStartX = e.touches[0].clientX; }, { passive: true });
-book.addEventListener('touchend', e => {
-  const diff = swipeStartX - e.changedTouches[0].clientX;
-  if (diff > 50)  flipNext();
-  if (diff < -50) flipPrev();
+// Build dot indicators
+BOOK_PAGES.forEach((_, i) => {
+  const d = document.createElement('button');
+  d.className = 'book-dot';
+  d.setAttribute('aria-label', `Page ${i + 1}`);
+  d.addEventListener('click', () => goTo(i));
+  dotsWrap.appendChild(d);
 });
 
-updateBook();
+function renderCard(idx) {
+  const p = BOOK_PAGES[idx];
+  bookMedia.innerHTML = p.img
+    ? `<img src="${p.img}" alt="">`
+    : `<div class="dummy-book ${p.dummy}" style="width:100%;height:100%;"></div>`;
+  bookTxt.textContent = p.text;
+}
+
+function syncUI() {
+  dotsWrap.querySelectorAll('.book-dot').forEach((d, i) =>
+    d.classList.toggle('active', i === bookIdx)
+  );
+  btnPrev.disabled = bookIdx === 0;
+  btnNext.disabled = bookIdx === BOOK_PAGES.length - 1;
+}
+
+function goTo(target) {
+  if (bookBusy || target === bookIdx) return;
+  if (target < 0 || target >= BOOK_PAGES.length) return;
+  bookBusy = true;
+
+  // dir: which side the card exits toward
+  const exitDeg  = target > bookIdx ? -90 : 90;
+  const enterDeg = target > bookIdx ?  90 : -90;
+
+  // Phase 1 — rotate out to edge (invisible at 90°)
+  bookCard.style.transition = `transform ${OUT_MS}ms ease-in, opacity ${OUT_MS}ms ease-in`;
+  bookCard.style.transform  = `rotateY(${exitDeg}deg) scale(${MID_SCALE})`;
+  bookCard.style.opacity    = '0';
+
+  setTimeout(() => {
+    // Snap to opposite edge instantly (no transition, card is hidden)
+    bookCard.style.transition = 'none';
+    bookCard.style.transform  = `rotateY(${enterDeg}deg) scale(${MID_SCALE})`;
+
+    // Swap content while invisible
+    bookIdx = target;
+    renderCard(bookIdx);
+    syncUI();
+
+    // Force browser to register the snap before animating in
+    void bookCard.offsetHeight;
+
+    // Phase 2 — rotate into view
+    bookCard.style.transition = `transform ${IN_MS}ms ease-out, opacity ${IN_MS}ms ease-out`;
+    bookCard.style.transform  = 'rotateY(0deg) scale(1)';
+    bookCard.style.opacity    = '1';
+
+    setTimeout(() => { bookBusy = false; }, IN_MS);
+  }, OUT_MS);
+}
+
+// Initial render
+renderCard(0);
+syncUI();
+bookCard.style.transform = 'rotateY(0deg) scale(1)';
+bookCard.style.opacity   = '1';
+
+// Buttons
+btnNext.addEventListener('click', () => goTo(bookIdx + 1));
+btnPrev.addEventListener('click', () => goTo(bookIdx - 1));
+
+// Swipe (mobile)
+let bkTouchX = 0;
+bookStage.addEventListener('touchstart', e => { bkTouchX = e.touches[0].clientX; }, { passive: true });
+bookStage.addEventListener('touchend', e => {
+  const diff = bkTouchX - e.changedTouches[0].clientX;
+  if (diff > 50)  goTo(bookIdx + 1);
+  if (diff < -50) goTo(bookIdx - 1);
+});
 
 /* ============================
    GALLERY — DRAG SCROLL

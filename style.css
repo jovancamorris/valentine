@@ -400,38 +400,17 @@ body {
   gap:28px;
 }
 
-.book-wrapper {
+/* Single-card viewer — no stacking, no z-index issues */
+.book-stage {
+  width:100%;
   display:flex;
   justify-content:center;
-  align-items:center;
-  width:100%;
   padding:10px;
+  perspective:1400px;
 }
 
-.book-3d {
+.book-card {
   width:285px; height:390px;
-  perspective:2200px;
-  position:relative;
-  touch-action:pan-y;
-}
-
-.paper {
-  position:absolute;
-  width:100%; height:100%;
-  transform-style:preserve-3d;
-  transform-origin:center;
-  transition:transform 1.25s cubic-bezier(.4,.2,.2,1);
-}
-.paper:nth-child(1){ z-index:5; }
-.paper:nth-child(2){ z-index:4; }
-.paper:nth-child(3){ z-index:3; }
-.paper.flipped  { transform:rotateY(-180deg); z-index:1; }
-/* z-index stays on top during the flip animation, drops to 1 after it completes */
-.paper.flipping { z-index:10 !important; }
-
-.front,.back {
-  position:absolute; inset:0;
-  backface-visibility:hidden;
   border-radius:22px;
   background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,230,242,.88));
   box-shadow:0 32px 70px rgba(0,0,0,.45);
@@ -440,20 +419,25 @@ body {
   flex-direction:column;
   gap:14px;
   color:var(--text-dark);
+  will-change:transform,opacity;
+  /* JS drives all transform/opacity — no CSS transition here */
 }
-.front img,.back img,.dummy-book {
-  width:100%;
+
+.book-card-media {
   flex:1;
   border-radius:14px;
-  object-fit:cover;
+  overflow:hidden;
   min-height:0;
 }
-.dummy-book {
-  border-radius:14px;
+.book-card-media img,
+.book-card-media .dummy-book {
+  width:100%; height:100%;
+  object-fit:cover;
+  display:block;
 }
 .db1 { background:linear-gradient(135deg,#f48fb1,#e91e63,#880e4f); }
 
-.front p,.back p {
+.book-card-text {
   font-size:.88rem;
   line-height:1.55;
   color:var(--rose-deep);
@@ -461,7 +445,27 @@ body {
   text-align:center;
   flex-shrink:0;
 }
-.back { transform:rotateY(180deg); }
+
+/* Dot indicators */
+.book-dots {
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.book-dot {
+  width:8px; height:8px;
+  border-radius:50%;
+  background:rgba(255,255,255,.25);
+  border:none;
+  cursor:pointer;
+  padding:0;
+  transition:all .3s ease;
+}
+.book-dot.active {
+  background:var(--gold);
+  transform:scale(1.45);
+  box-shadow:0 0 10px rgba(212,168,83,.65);
+}
 
 /* Book controls */
 .book-controls {
@@ -892,7 +896,7 @@ body {
    RESPONSIVE
 ============================ */
 @media (max-width:480px) {
-  .book-3d { width:260px; height:362px; }
+  .book-card { width:260px; height:362px; }
   .gallery-card { flex:0 0 230px; }
   .gallery-img-wrap { height:250px; }
   .timeline::before { left:23px; }
@@ -918,7 +922,7 @@ body {
   .timeline-item:nth-child(even) { flex-direction:row-reverse; }
   .timeline-item:nth-child(even) .tl-dot { order:-1; }
 
-  .book-3d { width:320px; height:430px; }
+  .book-card { width:320px; height:430px; }
 }
 
 @media (min-width:1024px) {
