@@ -1,4 +1,80 @@
 /* ============================
+   LOCK SCREEN
+============================ */
+(function initLock() {
+  const lockScreen = document.getElementById('lockScreen');
+  const lockName   = document.getElementById('lockName');
+  const lockDob    = document.getElementById('lockDob');
+  const lockError  = document.getElementById('lockError');
+  const lockSubmit = document.getElementById('lockSubmit');
+  const lockBox    = document.querySelector('.lock-box');
+  const pLayer     = document.getElementById('lockParticles');
+
+  const ACCEPTED_NAMES = ['veliana', 'veliana may', 'veliana valeri', 'veliana valeri may'];
+  const CORRECT_DOB    = '2005-05-22';
+
+  // Ambient floating particles inside lock screen
+  const lockSyms = ['✨','🌟','💫','⭐','🌸','💖','🤝','🫂'];
+  function spawnLockParticle() {
+    const el = document.createElement('span');
+    el.className   = 'lock-particle';
+    el.textContent = lockSyms[Math.floor(Math.random() * lockSyms.length)];
+    el.style.left  = (Math.random() * 100) + 'vw';
+    el.style.fontSize = (12 + Math.random() * 18) + 'px';
+    el.style.animationDuration = (7 + Math.random() * 9) + 's';
+    el.style.animationDelay    = (Math.random() * 3)     + 's';
+    pLayer.appendChild(el);
+    setTimeout(() => el.remove(), 18000);
+  }
+  for (let i = 0; i < 18; i++) spawnLockParticle();
+  const lockParticleTimer = setInterval(spawnLockParticle, 1200);
+
+  function showError(msg) {
+    lockError.textContent = msg;
+    lockBox.classList.remove('lock-shake');
+    void lockBox.offsetWidth;
+    lockBox.classList.add('lock-shake');
+  }
+
+  function unlock() {
+    clearInterval(lockParticleTimer);
+    lockScreen.classList.add('unlocking');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      lockScreen.style.display = 'none';
+    }, 700);
+  }
+
+  function attempt() {
+    const name = lockName.value.trim().toLowerCase();
+    const dob  = lockDob.value;
+
+    if (!name && !dob) { showError('Please fill in both fields 🔑'); return; }
+    if (!name)         { showError('Enter your full name 📝'); return; }
+    if (!dob)          { showError('Pick your date of birth 🗓️'); return; }
+    if (!ACCEPTED_NAMES.includes(name)) { showError('Hmm, that name doesn\'t match 🤔'); return; }
+    if (dob  !== CORRECT_DOB)  { showError('That date isn\'t right either 🗓️'); return; }
+
+    lockIcon();
+    setTimeout(unlock, 500);
+  }
+
+  function lockIcon() {
+    document.querySelector('.lock-icon').textContent = '🔓';
+    lockError.textContent = '';
+    lockSubmit.textContent = 'Welcome ✨';
+    lockSubmit.style.background = 'linear-gradient(135deg,#2e7d32,#43a047)';
+  }
+
+  lockSubmit.addEventListener('click', attempt);
+  lockName.addEventListener('keydown',  e => { if (e.key === 'Enter') lockDob.focus(); });
+  lockDob.addEventListener('keydown',   e => { if (e.key === 'Enter') attempt(); });
+
+  // Block scroll while locked
+  document.body.style.overflow = 'hidden';
+})();
+
+/* ============================
    LOADER
 ============================ */
 window.addEventListener('load', () => {
@@ -288,7 +364,34 @@ yesBtn.addEventListener('click', e => {
   e.stopPropagation();
   launchConfetti();
   popup.style.display = 'flex';
+  notifyYes();
 });
+
+function notifyYes() {
+  const now = new Date();
+  const timestamp = now.toLocaleString('id-ID', {
+    timeZone: 'Asia/Jakarta',
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+
+  const params = new URLSearchParams({
+    title: 'Veliana said YES! 🤝🎉',
+    priority: 'high',
+    tags: 'tada,heart,star2'
+  });
+
+  fetch(`https://ntfy.sh/veve-hbd-jmc-2026?${params}`, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: `🎉 Veliana just clicked "YES" on your birthday page!\nShe agrees to be your best friend forever 🤝\n\n🕐 Time: ${timestamp} (WIB)`
+  }).catch(err => console.error('[ntfy] error:', err));
+}
 
 noBtn.addEventListener('click', e => {
   e.stopPropagation();

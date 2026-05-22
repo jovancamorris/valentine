@@ -9,6 +9,31 @@
 </head>
 <body>
 
+<!-- =================== LOCK SCREEN =================== -->
+<div id="lockScreen">
+  <div class="lock-bg"></div>
+  <div class="lock-particles" id="lockParticles"></div>
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <h2 class="lock-title">This page is locked</h2>
+    <p class="lock-sub">Only one person has the key to open this ✨</p>
+
+    <div class="lock-field">
+      <label class="lock-label">Full Name</label>
+      <input type="text" id="lockName" class="lock-input" placeholder="Enter your full name..." autocomplete="off" spellcheck="false">
+    </div>
+
+    <div class="lock-field">
+      <label class="lock-label">Date of Birth (bisa isi manual/klik calendar)</label>
+      <input type="date" id="lockDob" class="lock-input lock-date" max="2026-01-01">
+    </div>
+
+    <p class="lock-error" id="lockError"></p>
+
+    <button class="lock-btn" id="lockSubmit">Unlock 🗝️</button>
+  </div>
+</div>
+
 <!-- LOADER -->
 <div id="loader">
   <div class="loader-inner">
@@ -133,7 +158,12 @@
         <div class="tl-img dummy-t dt1"></div>
         <div class="tl-content">
           <h3>The Beginning</h3>
-          <p>The first time I saw you, something in me just knew.</p>
+          <p>The first time I saw you, something in me just knew. 
+            It was back in 2015 at JTC PRJ, and honestly, 
+            you were the sweetest singer I had ever met. 
+            Dari cara kamu bernyanyi dan tersenyum, 
+            itu benar-benar membuat aku menyadari betapa indahnya karya Tuhan. 
+            And right then and there, we introduced ourselves and became friends (i guess)..</p>
         </div>
       </div>
     </div>
@@ -143,7 +173,10 @@
         <div class="tl-img dummy-t dt2"></div>
         <div class="tl-content">
           <h3>Getting Closer</h3>
-          <p>Every conversation, every laugh — I fell a little more.</p>
+          <p>Every conversation, every laugh — I fell a little more.
+            The way you greeted everyone with so much warmth, 
+            and how you gracefully handled feedback from the JC leader 
+            — all of it just made me admire you even more. </p>
         </div>
       </div>
     </div>
@@ -152,8 +185,12 @@
       <div class="tl-card">
         <div class="tl-img dummy-t dt3"></div>
         <div class="tl-content">
-          <h3>The Quiet Moments</h3>
-          <p>Not all love is loud. Sometimes it's just being there.</p>
+          <h3>after Covid moments</h3>
+          <p>I knew back then that you were going through a tough time and dealing with an illness. I'm truly sorry I couldn't be there to fully support you during that period. Sejak saat itu, kita memang agak sedikit lost contact.
+
+But honestly, after Covid, I’m so glad we came back together as friends. Kita mulai gereja bareng lagi, and I have to say, the cookies you gave me? That was genuinely one of the best gifts I’ve ever received—though maybe I’m a bit biased because they came from you, haha.
+
+But anyway, semakin mengenal kamu, semakin aku tahu kalau Tuhan selalu memberikan support system dimanapun kita berada.</p>
         </div>
       </div>
     </div>
@@ -162,8 +199,8 @@
       <div class="tl-card">
         <div class="tl-img dummy-t dt4"></div>
         <div class="tl-content">
-          <h3>Today & Always</h3>
-          <p>This Valentine's Day, I choose you again.</p>
+          <h3>Today!!!</h3>
+          <p>This is your's Birthday, I wish you all the best!</p>
         </div>
       </div>
     </div>
@@ -234,13 +271,28 @@ But another part of me is finally learning to let go peacefully.
   <div class="ring r3"></div>
 
   <div class="question-content fade">
-    <p class="section-label">One Last Thing...</p>
-    <h2 class="question-title">Will you be my Valentine? 💍</h2>
-    <p class="question-sub">for now and forever 🌹</p>
+    <p class="section-label">✨ One Last Thing... ✨</p>
+    <div class="question-icon-row">🤝 🌟 🫂</div>
+    <h2 class="question-title">Will you be my best friend — through every high and every low?</h2>
+    <div class="question-promise-cards">
+      <div class="promise-card">
+        <span class="promise-icon">☀️</span>
+        <p>In the good times, we celebrate together</p>
+      </div>
+      <div class="promise-card">
+        <span class="promise-icon">🌧️</span>
+        <p>In the hard times, I'll be right beside you</p>
+      </div>
+      <div class="promise-card">
+        <span class="promise-icon">🫂</span>
+        <p>Always your support system, whenever you need</p>
+      </div>
+    </div>
+    <p class="question-sub">through sunshine and storms, forever and always 🌈</p>
 
     <div class="choice">
-      <button id="no" class="choice-btn btn-no">No 🙈</button>
-      <button id="yes" class="choice-btn btn-yes">Yes, always! 💖</button>
+      <button id="no" class="choice-btn btn-no">Hmm, not sure 🙈</button>
+      <button id="yes" class="choice-btn btn-yes">Yes, always! 🤝✨</button>
     </div>
   </div>
 </section>
@@ -249,11 +301,20 @@ But another part of me is finally learning to let go peacefully.
 <div id="popup" class="popup">
   <div class="popup-overlay" onclick="closePopup()"></div>
   <div class="popup-box">
-    <div class="popup-emoji">🎊</div>
-    <h3>Selamat! 💖</h3>
-    <p>Sekarang kita resmi pacaran 😆<br>Screenshot &amp; kirim ke pemilik webnya ya!</p>
-    <div class="popup-hearts">💖 💕 💗 💓 💝</div>
-    <button class="popup-close" onclick="closePopup()">Iya, Siap! 💌</button>
+    <div class="popup-emoji-row">🎉 🤝 🎉</div>
+    <h3>We're officially best friends! 🌟</h3>
+    <p class="popup-message">
+      Through every laugh, every tear, every moment —<br>
+      I've got your back, <strong>always</strong>. 🫂
+    </p>
+    <div class="popup-badges">
+      <span class="badge">☀️ Good Times</span>
+      <span class="badge">🌧️ Tough Days</span>
+      <span class="badge">🫂 Always Here</span>
+      <span class="badge">🌟 Forever</span>
+    </div>
+    <p class="popup-cta">Your answer has been recorded ✅</p>
+    <button class="popup-close" onclick="closePopup()">Let's do this! 🤝</button>
   </div>
 </div>
 
