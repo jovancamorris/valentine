@@ -93,7 +93,7 @@ const BOOK_PAGES = [
   { img: 'img/book1.jpg', text: 'I loved you in ways I never knew how to explain.' },
   { img: 'img/book2.jpg', text: 'In your presence, my chaos learned peace.' },
   { img: 'img/book3.jpg', text: 'You are my favorite reason to smile every single day.' },
-  { img: null,            text: 'Loving you is the best decision my heart ever made.', dummy: 'db1' },
+  { img: 'img/card7.jpeg', text: 'Loving you is the best decision my heart ever made.', dummy: 'db1' },
   { img: 'img/book5.jpg', text: 'I choose you, in this life and in every version of me.' },
   { img: 'img/book6.jpg', text: 'Always you, always us.' },
 ];
