@@ -42,6 +42,7 @@
     document.body.style.overflow = '';
     setTimeout(() => {
       lockScreen.style.display = 'none';
+      tryPlay();
     }, 700);
   }
 
@@ -65,6 +66,11 @@
     lockSubmit.textContent = 'Welcome ✨';
     lockSubmit.style.background = 'linear-gradient(135deg,#2e7d32,#43a047)';
   }
+
+  // Navigate picker to target date on first focus without pre-filling the field
+  lockDob.addEventListener('focus', () => {
+    if (!lockDob.value) lockDob.value = '2005-05-22';
+  }, { once: true });
 
   lockSubmit.addEventListener('click', attempt);
   lockName.addEventListener('keydown',  e => { if (e.key === 'Enter') lockDob.focus(); });
@@ -98,7 +104,6 @@ function tryPlay() {
   }).catch(() => {});
 }
 
-document.body.addEventListener('click', () => { if (!musicPlaying) tryPlay(); }, { once: true });
 
 musicBtn.addEventListener('click', e => {
   e.stopPropagation();
